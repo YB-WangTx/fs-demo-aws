@@ -18,4 +18,8 @@ values(3000, 'x3000', 'test3000', 'test3000@gmail.com', '{"Account_documents":{"
   
   select * from User_Preferences_us_west;
   
+  select * from User_Preferences where preferred_region='AP-SOUTHEAST-1';
+  select * from User_Preferences where preferred_region='US-EAST-3';
+  select * from User_Preferences where preferred_region='US-WEST-2';
+  
   select name, account_id, communication->'Subscriptions'->'Viewpoints_Weekly_Edition', communication->'Account_documents'->'Statements' from user_preferences;
