@@ -64,3 +64,6 @@ java -jar /home/centos/yb-sample-apps.jar \
   --create_table_name t_green \
   --truncate
   
+  
+  java -jar yb-sample-apps.jar --workload SqlInserts --nodes 172.161.21.64:5433 --num_partitions 1  --nouuid --num_unique_keys 10000000 --num_reads 10000000 --num_writes 10000000 --tablespaces "regular_tablespace" --password Hsunder@1 --username yugabyte  --run_time 7200 --default_postgres_database yugabyte --num_threads_read 1 -num_threads_write 1 --create_table_name table_EastUS2a --truncate
+  
