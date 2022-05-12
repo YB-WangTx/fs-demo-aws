@@ -36,3 +36,31 @@ values(3000, 'x3000', 'test3000', 'test3000@gmail.com', '{"Account_documents":{"
   select * from User_Preferences where preferred_region='US-WEST-2';
   
   select name, account_id, communication->'Subscriptions'->'Viewpoints_Weekly_Edition', communication->'Account_documents'->'Statements' from user_preferences;
+  
+  
+  # wget https://github.com/yugabyte/yb-sample-apps/releases/download/1.3.9/yb-sample-apps.jar
+
+# BLUE client - 54.80.165.241
+java -jar /home/centos/yb-sample-apps.jar \
+  --workload SqlInserts \
+  --nodes 20.10.2.174:5433 \
+  --num_unique_keys 20000000000 \
+  --num_reads -1 \
+  --num_writes -1 \
+  --num_threads_read 1 \
+  --num_threads_write 4 \
+  --create_table_name t_blue \
+  --truncate
+
+# GREEN client - 3.142.241.200
+java -jar /home/centos/yb-sample-apps.jar \
+  --workload SqlInserts \
+  --nodes 20.11.1.89:5433 \
+  --num_unique_keys 20000000000 \
+  --num_reads -1 \
+  --num_writes -1 \
+  --num_threads_read 1 \
+  --num_threads_write 4 \
+  --create_table_name t_green \
+  --truncate
+  
