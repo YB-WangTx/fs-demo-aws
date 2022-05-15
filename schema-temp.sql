@@ -1,5 +1,6 @@
 
 --Parent table
+drop table User_Preferences cascade;
 CREATE TABLE User_Preferences (
      user_id varchar(50),
      account_id varchar(50),
@@ -34,6 +35,7 @@ CREATE TABLESPACE ap_southeast_1_tablespace WITH (
 );
 
 --create tables
+drop table User_Preferences_us_east cascasde;
 CREATE TABLE User_Preferences_us_east
     PARTITION OF User_Preferences
       (user_id, name, contact_email, account_statement_delivery,preferred_region,
@@ -43,6 +45,7 @@ CREATE TABLE User_Preferences_us_east
 
 CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE us_east_2_tablespace;
 
+drop table User_Preferences_us_west cascade; 
 CREATE TABLE User_Preferences_us_west
     PARTITION OF User_Preferences
       (user_id, name, contact_email, account_statement_delivery,preferred_region,
@@ -52,6 +55,7 @@ CREATE TABLE User_Preferences_us_west
 
 CREATE INDEX ON User_Preferences_us_west(user_id) TABLESPACE us_west_2_tablespace;
 
+drop table User_Preferences_ap_southeast cascade;
 CREATE TABLE User_Preferences_ap_southeast
     PARTITION OF User_Preferences
       (user_id, name, contact_email, account_statement_delivery,preferred_region,
