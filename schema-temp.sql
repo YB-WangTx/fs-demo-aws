@@ -2,7 +2,7 @@
 --Parent table
 drop table User_Preferences cascade;
 CREATE TABLE User_Preferences (
-     user_id varchar(50),
+     user_id varchar(50) DEFAULT nextval('s_user_id'),
      account_id varchar(50),
      name varchar(50),
      contact_email varchar(50),
