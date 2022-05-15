@@ -2,16 +2,16 @@
 --Parent table
 drop table User_Preferences cascade;
 CREATE TABLE User_Preferences (
-     userId varchar(50) DEFAULT nextval('s_user_id'),
-     accountId varchar(50),
+     user_id varchar(50) DEFAULT nextval('s_user_id'),
+     account_id varchar(50),
      name varchar(50),
-     contactEmail varchar(50),
-     accountStatementDelivery varchar(50) DEFAULT ('eDelivery'),
-     subViewPoints varchar(50)  DEFAULT ('Opt-in'),
-     preferredRegion varchar(50),
+     contact_email varchar(50),
+     account_statement_delivery varchar(50) DEFAULT ('eDelivery'),
+     sub_view_points varchar(50)  DEFAULT ('Opt-in'),
+     preferred_region varchar(50),
      created_date TIMESTAMP DEFAULT NOW(),
      updated_date TIMESTAMP DEFAULT NOW()
-) PARTITION BY LIST (preferredRegion);
+) PARTITION BY LIST (preferred_region);
 
 --crate tablespaces
 CREATE TABLESPACE us_east_2_tablespace WITH (
@@ -36,32 +36,30 @@ CREATE TABLESPACE ap_southeast_1_tablespace WITH (
 );
 
 --create tables
-drop table User_Preferences_us_east cascasde;
 CREATE TABLE User_Preferences_us_east
     PARTITION OF User_Preferences
-      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
+      (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
-      PRIMARY KEY (userId HASH, accountId))
+      PRIMARY KEY (user_id HASH, account_id))
     FOR VALUES IN ('US-EAST-2') TABLESPACE us_east_2_tablespace;
 
-CREATE INDEX ON User_Preferences_us_east(userId) TABLESPACE us_east_2_tablespace;
+CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE us_east_2_tablespace;
 
-drop table User_Preferences_us_west cascade; 
+
 CREATE TABLE User_Preferences_us_west
     PARTITION OF User_Preferences
-      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
+      (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
-       PRIMARY KEY (userId HASH, accountId))
+       PRIMARY KEY (user_id HASH, account_id))
     FOR VALUES IN ('US-WEST-2') TABLESPACE us_west_2_tablespace;
 
-CREATE INDEX ON User_Preferences_us_west(userId) TABLESPACE us_west_2_tablespace;
+CREATE INDEX ON User_Preferences_us_west(user_id) TABLESPACE us_west_2_tablespace;
 
-drop table User_Preferences_ap_southeast cascade;
 CREATE TABLE User_Preferences_ap_southeast
     PARTITION OF User_Preferences
-      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
+      (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
-       PRIMARY KEY (userId HASH, accountId))
+       PRIMARY KEY (user_id HASH, account_id))
     FOR VALUES IN ('AP-SOUTHEAST-1') TABLESPACE ap_southeast_1_tablespace;
 
-CREATE INDEX ON User_Preferences_ap_southeast(userId) TABLESPACE ap_southeast_1_tablespace;
+CREATE INDEX ON User_Preferences_ap_southeast(user_id) TABLESPACE ap_southeast_1_tablespace;
