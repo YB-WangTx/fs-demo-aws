@@ -11,7 +11,7 @@ CREATE TABLE User_Preferences (
      preferredRegion varchar(50),
      created_date TIMESTAMP DEFAULT NOW(),
      updated_date TIMESTAMP DEFAULT NOW()
-) PARTITION BY LIST (preferred_region);
+) PARTITION BY LIST (preferredRegion);
 
 --crate tablespaces
 CREATE TABLESPACE us_east_2_tablespace WITH (
@@ -41,27 +41,27 @@ CREATE TABLE User_Preferences_us_east
     PARTITION OF User_Preferences
       (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
-      PRIMARY KEY (user_id HASH, account_id, preferred_region))
+      PRIMARY KEY (userId HASH, accountId))
     FOR VALUES IN ('US-EAST-2') TABLESPACE us_east_2_tablespace;
 
-CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE us_east_2_tablespace;
+CREATE INDEX ON User_Preferences_us_east(userId) TABLESPACE us_east_2_tablespace;
 
 drop table User_Preferences_us_west cascade; 
 CREATE TABLE User_Preferences_us_west
     PARTITION OF User_Preferences
       (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
-      PRIMARY KEY (user_id HASH, account_id, preferred_region))
+       PRIMARY KEY (userId HASH, accountId))
     FOR VALUES IN ('US-WEST-2') TABLESPACE us_west_2_tablespace;
 
-CREATE INDEX ON User_Preferences_us_west(user_id) TABLESPACE us_west_2_tablespace;
+CREATE INDEX ON User_Preferences_us_west(userId) TABLESPACE us_west_2_tablespace;
 
 drop table User_Preferences_ap_southeast cascade;
 CREATE TABLE User_Preferences_ap_southeast
     PARTITION OF User_Preferences
       (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
-      PRIMARY KEY (user_id HASH, account_id, preferred_region))
+       PRIMARY KEY (userId HASH, accountId))
     FOR VALUES IN ('AP-SOUTHEAST-1') TABLESPACE ap_southeast_1_tablespace;
 
-CREATE INDEX ON User_Preferences_ap_southeast_1(user_id) TABLESPACE ap_southeast_1_tablespace;
+CREATE INDEX ON User_Preferences_ap_southeast(userId) TABLESPACE ap_southeast_1_tablespace;
