@@ -2,12 +2,13 @@
 --Parent table
 drop table User_Preferences cascade;
 CREATE TABLE User_Preferences (
-     user_id varchar(50) DEFAULT nextval('s_user_id'),
-     account_id varchar(50),
+     userId varchar(50) DEFAULT nextval('s_user_id'),
+     accountId varchar(50),
      name varchar(50),
-     contact_email varchar(50),
-     account_statement_delivery varchar(50) DEFAULT ('eDelivery'),
-     preferred_region varchar(50),
+     contactEmail varchar(50),
+     accountStatementDelivery varchar(50) DEFAULT ('eDelivery'),
+     subViewPoints varchar(50)  DEFAULT ('Opt-in'),
+     preferredRegion varchar(50),
      created_date TIMESTAMP DEFAULT NOW(),
      updated_date TIMESTAMP DEFAULT NOW()
 ) PARTITION BY LIST (preferred_region);
@@ -38,7 +39,7 @@ CREATE TABLESPACE ap_southeast_1_tablespace WITH (
 drop table User_Preferences_us_east cascasde;
 CREATE TABLE User_Preferences_us_east
     PARTITION OF User_Preferences
-      (user_id, name, contact_email, account_statement_delivery,preferred_region,
+      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
       PRIMARY KEY (user_id HASH, account_id, preferred_region))
     FOR VALUES IN ('US-EAST-2') TABLESPACE us_east_2_tablespace;
@@ -48,7 +49,7 @@ CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE us_east_2_tablespac
 drop table User_Preferences_us_west cascade; 
 CREATE TABLE User_Preferences_us_west
     PARTITION OF User_Preferences
-      (user_id, name, contact_email, account_statement_delivery,preferred_region,
+      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
       PRIMARY KEY (user_id HASH, account_id, preferred_region))
     FOR VALUES IN ('US-WEST-2') TABLESPACE us_west_2_tablespace;
@@ -58,7 +59,7 @@ CREATE INDEX ON User_Preferences_us_west(user_id) TABLESPACE us_west_2_tablespac
 drop table User_Preferences_ap_southeast cascade;
 CREATE TABLE User_Preferences_ap_southeast
     PARTITION OF User_Preferences
-      (user_id, name, contact_email, account_statement_delivery,preferred_region,
+      (userId, name, contactEmail, accountStatementDelivery, subViewPoints, preferredRegion,
       created_date, updated_date, 
       PRIMARY KEY (user_id HASH, account_id, preferred_region))
     FOR VALUES IN ('AP-SOUTHEAST-1') TABLESPACE ap_southeast_1_tablespace;
