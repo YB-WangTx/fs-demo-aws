@@ -1,0 +1,5 @@
+/Users/weiwang/eclipse-workspace/yugabyte-fsi-demo: ./mvnw clean install
+ls -l target/
+java -jar target/yugabyte-fsi-demo-0.0.1-SNAPSHOT.jar --server.port=9898
+--kill:  lsof -t -i tcp:8090 | xargs kill -9
+java -jar target/yugabyte-fsi-demo-0.0.1-SNAPSHOT.jar --spring.datasource.url=jdbc:postgresql://147.28.159.13:5433/yugabyte --spring.datasource.username=yugabyte  --spring.datasource.password="DFGHJKLFDFGHJKDFGHJKL"
