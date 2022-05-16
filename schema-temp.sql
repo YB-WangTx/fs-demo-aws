@@ -43,7 +43,7 @@ CREATE TABLE User_Preferences_eu_central
       (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
       PRIMARY KEY (user_id HASH, account_id))
-    FOR VALUES IN ('EU-CENTRAL-1') TABLESPACE eu_central_1_tablespace;
+    FOR VALUES IN ('EU') TABLESPACE eu_central_1_tablespace;
 
 CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE eu_central_1_tablespace;
 
@@ -53,7 +53,7 @@ CREATE TABLE User_Preferences_us_west
       (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
        PRIMARY KEY (user_id HASH, account_id))
-    FOR VALUES IN ('US-WEST-2') TABLESPACE us_west_2_tablespace;
+    FOR VALUES IN ('US-WEST') TABLESPACE us_west_2_tablespace;
 
 CREATE INDEX ON User_Preferences_us_west(user_id) TABLESPACE us_west_2_tablespace;
 
@@ -62,6 +62,6 @@ CREATE TABLE User_Preferences_ap_southeast
       (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
        PRIMARY KEY (user_id HASH, account_id))
-    FOR VALUES IN ('AP-SOUTHEAST-1') TABLESPACE ap_southeast_1_tablespace;
+    FOR VALUES IN ('Asian') TABLESPACE ap_southeast_1_tablespace;
 
 CREATE INDEX ON User_Preferences_ap_southeast(user_id) TABLESPACE ap_southeast_1_tablespace;
