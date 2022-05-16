@@ -14,25 +14,26 @@ CREATE TABLE User_Preferences (
 ) PARTITION BY LIST (preferred_region);
 
 --crate tablespaces
-CREATE TABLESPACE us_east_2_tablespace WITH (
+drop tablespace  eu_central_1_tablespace;
+CREATE TABLESPACE us1_east_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us_east_2","zone":"us_east_2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us_east_2","zone":"us_east_2b","min_num_replicas":1},
-  {"cloud":"aws","region":"us_east_2","zone":"us_east_2c","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"eu-central-1","zone":"eu-central-1a","min_num_replicas":1,"leader_preference":1},
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1b","min_num_replicas":1,"leader_preference":1},
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1c","min_num_replicas":1,"leader_preference":1}]}'
 );
 
 CREATE TABLESPACE us_west_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2b","min_num_replicas":1},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2c","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1,"leader_preference":1},
+  {"cloud":"aws","region":"us-west-2","zone":"us-west-2b","min_num_replicas":1,"leader_preference":2},
+  {"cloud":"aws","region":"us-west-2","zone":"us-west-2c","min_num_replicas":1,"leader_preference":3}]}'
 );
 
 CREATE TABLESPACE ap_southeast_1_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1},
-  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1},
-  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":1},
+  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":2},
+  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":3}]}'
 );
 
 --create tables
