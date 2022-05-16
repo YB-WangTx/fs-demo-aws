@@ -1,5 +1,6 @@
 
 --Parent table
+create sequence s_user_id;
 drop table User_Preferences cascade;
 CREATE TABLE User_Preferences (
      user_id integer DEFAULT nextval('s_user_id'),
@@ -15,36 +16,44 @@ CREATE TABLE User_Preferences (
 
 --crate tablespaces
 drop tablespace  eu_central_1_tablespace;
+CREATE TABLESPACE eu_central_1_tablespace WITH (
+  replica_placement='{"num_replicas": 3, "placement_blocks":
+  [{"cloud":"aws","region":"eu-central-1","zone":"eu-central-1a","min_num_replicas":1},
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1b","min_num_replicas":1},
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1c","min_num_replicas":1}]}'
+);
+
 CREATE TABLESPACE us1_east_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
   [{"cloud":"aws","region":"eu-central-1","zone":"eu-central-1a","min_num_replicas":1,"leader_preference":1},
-  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1b","min_num_replicas":1,"leader_preference":1},
-  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1c","min_num_replicas":1,"leader_preference":1}]}'
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1b","min_num_replicas":1,"leader_preference":2},
+  {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1c","min_num_replicas":1,"leader_preference":3}]}'
 );
+
 
 CREATE TABLESPACE us_west_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1,"leader_preference":1},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2b","min_num_replicas":1,"leader_preference":2},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2c","min_num_replicas":1,"leader_preference":3}]}'
+  [{"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1},
+  {"cloud":"aws","region":"us-west-2","zone":"us-west-2b","min_num_replicas":1},
+  {"cloud":"aws","region":"us-west-2","zone":"us-west-2c","min_num_replicas":1}]}'
 );
 
 CREATE TABLESPACE ap_southeast_1_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":1},
-  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":2},
-  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1,"leader_preference":3}]}'
+  [{"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1},
+  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1},
+  {"cloud":"aws","region":"ap-southeast-1","zone":"ap-southeast-1a","min_num_replicas":1}]}'
 );
 
 --create tables
-CREATE TABLE User_Preferences_us_east
+CREATE TABLE User_Preferences_eu_central
     PARTITION OF User_Preferences
       (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
       created_date, updated_date, 
       PRIMARY KEY (user_id HASH, account_id))
-    FOR VALUES IN ('US-EAST-2') TABLESPACE us_east_2_tablespace;
+    FOR VALUES IN ('EU-CENTRAL-1') TABLESPACE eu_central_1_tablespace;
 
-CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE us_east_2_tablespace;
+CREATE INDEX ON User_Preferences_us_east(user_id) TABLESPACE eu_central_1_tablespace;
 
 
 CREATE TABLE User_Preferences_us_west
