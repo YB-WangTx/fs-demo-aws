@@ -62,8 +62,8 @@ CREATE INDEX ON User_Preferences_us_west(customer_id) TABLESPACE us_west_2_table
 
 CREATE TABLE User_Preferences_ap_southeast
     PARTITION OF User_Preferences
-      (user_id, name, contact_email, account_statement_delivery, sub_view_points, preferred_region,
-      created_date, updated_date, 
+    (customer_id, customer_name, account_id, contact_email, account_statement_delivery, tax_forms_delivery,trade_confirmation, 
+       trade_education_blog, preferred_region,created_date, updated_date, 
        PRIMARY KEY (user_id HASH, account_id))
     FOR VALUES IN ('AP') TABLESPACE ap_southeast_1_tablespace;
 
