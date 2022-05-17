@@ -1,3 +1,4 @@
+Create dataabase tradepref;
 
 --Parent table
 create sequence s_user_id;
