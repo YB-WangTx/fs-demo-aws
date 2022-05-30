@@ -22,11 +22,11 @@ CREATE TABLESPACE eu_central_1_tablespace WITH (
   {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1a","min_num_replicas":1}]}'
 );
 
-CREATE TABLESPACE us_west_2_tablespace WITH (
+CREATE TABLESPACE us_east_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-west-2","zone":"us-west-2a","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1}]}'
 );
 
 CREATE TABLESPACE ap_southeast_1_tablespace WITH (
@@ -38,11 +38,11 @@ CREATE TABLESPACE ap_southeast_1_tablespace WITH (
 
 --create unique index if not exists uk_cpref_userid on user_preferences using lsm (customer_id,preferred_region);
 
-CREATE TABLE if not exists customer_us_west
+CREATE TABLE if not exists customer_us_east
   PARTITION OF customers
     (customer_id, customer_name, contact_email, customer_phone,
       preferred_region,created_date, updated_date)
-    FOR VALUES IN ('US') TABLESPACE us_west_2_tablespace;
+    FOR VALUES IN ('US') TABLESPACE us_east_2_tablespace;
 
 CREATE TABLE if not exists customer_eu_central
   PARTITION OF customers
