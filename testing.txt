@@ -1,3 +1,30 @@
+--customer table testing
+
+CREATE TABLE IF NOT EXISTS customers
+(
+  customer_id                integer,
+  customer_name              varchar(50) NOT NULL,
+  contact_email              varchar(50) ,
+  customer_phone             varchar(20) ,
+  preferred_region           varchar(20) NOT NULL,
+  created_date               TIMESTAMP   DEFAULT NOW(),
+  updated_date               TIMESTAMP   DEFAULT NOW(),
+  PRIMARY KEY(customer_id,preferred_region)
+  
+ --US
+ --running it from US node: 
+insert into customers(customer_id,customer_name,contact_email,preferred_region) values(1, 'test1', 'test1@gmail.com', 'US');
+
+-AP
+ --running it fromAP node: 13.214.25.50 
+insert into customers(customer_id,customer_name,contact_email,preferred_region) values(2, 'test2', 'test2@gmail.com', 'AP');
+
+-EU
+insert into customers(customer_id,customer_name,contact_email,preferred_region) values(3, 'test3', 'test3@gmail.com', 'EU');
+
+--customer_preferences testing
+
+
 --SET force_global_transaction = TRUE;
 yugabyte=# CREATE database tradepref;
 ERROR:  Timed out: Timed out waiting for Create Database
