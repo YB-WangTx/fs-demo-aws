@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS customers
   preferred_region           varchar(20) NOT NULL,
   created_date               TIMESTAMP   DEFAULT NOW(),
   updated_date               TIMESTAMP   DEFAULT NOW(),
-  PRIMARY KEY(customer_id, preferred_region)
+  PRIMARY KEY(customer_id)
 ) PARTITION BY LIST (preferred_region);
 
 --
