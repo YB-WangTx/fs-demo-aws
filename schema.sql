@@ -22,11 +22,12 @@ CREATE TABLESPACE eu_central_1_tablespace WITH (
   {"cloud":"aws","region":"eu-central-1","zone":"eu-central-1c","min_num_replicas":1}]}'
 );
 
+drop TABLESPACE us_east_2_tablespace;
 CREATE TABLESPACE us_east_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"us-east-2","zone":"us-east-2c","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-east-2c","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-east-2c","min_num_replicas":1}]}'
 );
 
 drop TABLESPACE ap_southeast_1_tablespace;
