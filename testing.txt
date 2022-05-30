@@ -1,2 +1,25 @@
-SET force_global_transaction = TRUE;
+--SET force_global_transaction = TRUE;
+yugabyte=# CREATE database tradepref;
+ERROR:  Timed out: Timed out waiting for Create Database
 
+--insert from US-EAST
+insert into customer_preferences (customer_id, account_id, account_statement_delivery, tax_forms_delivery, trade_confirmation, daily_trade_blog )
+values
+  (1, 'ACTID-1', 'EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_IN'),
+  (2, 'ACTID-2', 'EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_OUT'),
+  (3, 'ACTID-3', 'EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_OUT');
+INSERT 0 3
+Time: 641.060 ms
+
+--insert from EU
+ERROR:  Illegal state: Nonlocal tablet accessed in local transaction: tablet 570d18206fbf42609833881351fd554b: . Errors from tablet servers: [Illegal state (yb/client/transaction.cc:281): Nonlocal tablet accessed in local transaction: tablet 570d18206fbf42609833881351fd554b]
+
+--change the flag
+SET force_global_transaction = TRUE;
+--insert it again
+INSERT 0 3
+Time: 799.111 ms
+
+--insert it from AP
+INSERT 0 3
+Time: 999.402 ms
