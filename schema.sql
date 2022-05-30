@@ -74,6 +74,18 @@ CREATE TABLE IF NOT EXISTS customer_preferences
   updated_date               TIMESTAMP   DEFAULT NOW()
 );
 
+yugabyte=# \dt
+                 List of relations
+ Schema |         Name          | Type  |  Owner   
+--------+-----------------------+-------+----------
+ public | customer_ap_southeast | table | yugabyte
+ public | customer_eu_central   | table | yugabyte
+ public | customer_preferences  | table | yugabyte
+ public | customer_us_east      | table | yugabyte
+ public | customers             | table | yugabyte
+(5 rows)
+
+
 insert into customer_preferences (customer_id, account_id, account_statement_delivery, tax_forms_delivery, trade_confirmation, daily_trade_blog )
 values
   (1, 'ACTID-1', 'EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_IN'),
