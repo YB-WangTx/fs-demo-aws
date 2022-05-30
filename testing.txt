@@ -17,7 +17,13 @@ insert into customers(customer_id,customer_name,contact_email,preferred_region) 
 
 -AP
  --running it fromAP node: 13.214.25.50 
-insert into customers(customer_id,customer_name,contact_email,preferred_region) values(2, 'test2', 'test2@gmail.com', 'AP');
+yugabyte=# insert into customers(customer_id,customer_name,contact_email,preferred_region) values(2, 'test2', 'test2@gmail.com', 'AP');
+INSERT 0 1
+Time: 2935.740 ms (00:02.936)
+
+yugabyte=# insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(20, 'test20', 'test20@gmail.com', 'AP');
+INSERT 0 1
+Time: 1043.104 ms (00:01.043)
 
 -EU
 insert into customers(customer_id,customer_name,contact_email,preferred_region) values(3, 'test3', 'test3@gmail.com', 'EU');
