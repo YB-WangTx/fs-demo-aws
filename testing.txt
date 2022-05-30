@@ -1,19 +1,20 @@
+--connect
+cd ~/Downloads
+ssh -i "wwang_keypair.pem" ubuntu@18.218.131.86
+--connect to AP
+sudo ssh -i /opt/yugabyte/yugaware/data/keys/1490c194-a4b8-44c9-9588-d65ac4968671/yb-demo-aws-multi-region_1490c194-a4b8-44c9-9588-d65ac4968671-key.pem -ostricthostkeychecking=no -p 22 yugabyte@172.156.63.168
+
+yugabyte=# insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(20, 'test20', 'test20@gmail.com', 'AP');
+INSERT 0 1
+Time: 406.011 ms
+
 --customer table testing
 
-CREATE TABLE IF NOT EXISTS customers
-(
-  customer_id                integer,
-  customer_name              varchar(50) NOT NULL,
-  contact_email              varchar(50) ,
-  customer_phone             varchar(20) ,
-  preferred_region           varchar(20) NOT NULL,
-  created_date               TIMESTAMP   DEFAULT NOW(),
-  updated_date               TIMESTAMP   DEFAULT NOW(),
-  PRIMARY KEY(customer_id,preferred_region)
-  
  --US
  --running it from US node: 
-insert into customers(customer_id,customer_name,contact_email,preferred_region) values(1, 'test1', 'test1@gmail.com', 'US');
+yugabyte=# insert into customer_us_east(customer_id,customer_name,contact_email,preferred_region) values(1, 'test1', 'test1@gmail.com', 'US');
+INSERT 0 1
+Time: 46.898 ms
 
 -AP
  --running it fromAP node: 13.214.25.50 
