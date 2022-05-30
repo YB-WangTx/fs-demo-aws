@@ -24,9 +24,9 @@ CREATE TABLESPACE eu_central_1_tablespace WITH (
 
 CREATE TABLESPACE us_east_2_tablespace WITH (
   replica_placement='{"num_replicas": 3, "placement_blocks":
-  [{"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1},
-  {"cloud":"aws","region":"us-east-2","zone":"us-west-2a","min_num_replicas":1}]}'
+  [{"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1},
+  {"cloud":"aws","region":"us-east-2","zone":"us-east-2a","min_num_replicas":1}]}'
 );
 
 CREATE TABLESPACE ap_southeast_1_tablespace WITH (
