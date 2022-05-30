@@ -1,0 +1,2 @@
+SET force_global_transaction = TRUE;
+
