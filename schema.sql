@@ -40,19 +40,19 @@ CREATE TABLE if not exists customer_us_west
   PARTITION OF customers
     (customer_id, customer_name, contact_email, customer_phone,
       preferred_region,created_date, updated_date)
-    FOR VALUES IN ('US');-- TABLESPACE us_west_2_tablespace
+    FOR VALUES IN ('US') TABLESPACE us_west_2_tablespace;
 
 CREATE TABLE if not exists customer_eu_central
   PARTITION OF customers
     (customer_id, customer_name, contact_email, customer_phone,
       preferred_region,created_date, updated_date)
-    FOR VALUES IN ('EU'); --TABLESPACE eu_central_1_tablespace;
+    FOR VALUES IN ('EU') TABLESPACE eu_central_1_tablespace;
 
 CREATE TABLE if not exists customer_ap_southeast
   PARTITION OF customers
     (customer_id, customer_name, contact_email, customer_phone,
       preferred_region,created_date, updated_date)
-    FOR VALUES IN ('AP'); --TABLESPACE ap_southeast_1_tablespace;
+    FOR VALUES IN ('AP') TABLESPACE ap_southeast_1_tablespace;
 
 
 CREATE TABLE IF NOT EXISTS customer_preferences
