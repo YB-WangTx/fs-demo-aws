@@ -1,3 +1,5 @@
+CREATE database tradepref;
+
 CREATE SEQUENCE IF NOT EXISTS s_user_id;
 
 CREATE TABLE IF NOT EXISTS customers
