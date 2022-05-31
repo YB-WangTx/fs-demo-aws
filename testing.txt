@@ -8,6 +8,52 @@ yugabyte=# insert into customer_ap_southeast(customer_id,customer_name,contact_e
 INSERT 0 1
 Time: 406.011 ms
 
+--on US EAST node
+yugabyte=# select * from customer_ap_southeast;
+ customer_id | customer_name |   contact_email   | customer_phone | preferred_region |        created_date        |        updated_date        
+-------------+---------------+-------------------+----------------+------------------+----------------------------+----------------------------
+         201 | test201       | test201@gmail.com |                | AP               | 2022-05-31 00:07:52.938237 | 2022-05-31 00:07:52.938237
+(1 row)
+
+Time: 2606.981 ms (00:02.607)
+
+--on AP node
+yugabyte=#  insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(201, 'test201', 'test201@gmail.com', 'AP');
+INSERT 0 1
+Time: 2.326 ms
+
+yugabyte=# select * from customer_ap_southeast;
+ customer_id | customer_name |   contact_email   | customer_phone | preferred_region |        created_date        |        updated_date        
+-------------+---------------+-------------------+----------------+------------------+----------------------------+----------------------------
+         201 | test201       | test201@gmail.com |                | AP               | 2022-05-31 00:07:52.938237 | 2022-05-31 00:07:52.938237
+(1 row)
+
+Time: 3.084 ms
+
+yugabyte=# select * from customers;
+ customer_id | customer_name |   contact_email   | customer_phone | preferred_region |        created_date        |        updated_date        
+-------------+---------------+-------------------+----------------+------------------+----------------------------+----------------------------
+         201 | test201       | test201@gmail.com |                | AP               | 2022-05-31 00:15:36.666489 | 2022-05-31 00:15:36.666489
+           1 | test1         | test1@gmail.com   |                | US               | 2022-05-30 20:43:21.843795 | 2022-05-30 20:43:21.843795
+(2 rows)
+
+Time: 5309.951 ms (00:05.310)
+
+yugabyte=# select * from customer_us_east;
+ customer_id | customer_name |  contact_email  | customer_phone | preferred_region |        created_date        |        updated_date        
+-------------+---------------+-----------------+----------------+------------------+----------------------------+----------------------------
+           1 | test1         | test1@gmail.com |                | US               | 2022-05-30 20:43:21.843795 | 2022-05-30 20:43:21.843795
+(1 row)
+
+Time: 3205.552 ms (00:03.206)
+
+SET force_global_transaction = TRUE;
+\timing
+begin
+  insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(200, 'test200', 'test200@gmail.com', 'AP');
+  insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(100, 'test100', 'test100@gmail.com', 'US');
+COMMIT;
+
 --customer table testing
 
  --US
