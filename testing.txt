@@ -47,6 +47,14 @@ yugabyte=# select * from customer_us_east;
 
 Time: 3205.552 ms (00:03.206)
 
+yugabyte=#  insert into customers(customer_id,customer_name,contact_email,preferred_region) values(202, 'test202', 'test202@gmail.com', 'AP');
+INSERT 0 1
+Time: 202.077 ms
+yugabyte=#  insert into customer_ap_southeast(customer_id,customer_name,contact_email,preferred_region) values(203, 'test203', 'test203@gmail.com', 'AP');
+INSERT 0 1
+Time: 2.319 ms
+
+
 SET force_global_transaction = TRUE;
 \timing
 begin
