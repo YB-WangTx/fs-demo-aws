@@ -1,3 +1,9 @@
+--login as superuser
+./ysqlsh -h -U superuser
+
+--change users
+Set session authorization
+
 CREATE database tradepref;
 
 CREATE SEQUENCE IF NOT EXISTS s_user_id;
