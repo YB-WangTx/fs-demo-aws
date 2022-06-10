@@ -92,6 +92,9 @@ yugabyte=# \dt
 (5 rows)
 
 
+grant ALL PRIVILEGES on tablespace ap_southeast_1_tablespace to yugabyte;
+
+
 insert into customer_preferences (customer_id, account_id, account_statement_delivery, tax_forms_delivery, trade_confirmation, daily_trade_blog )
 values
   (1, 'ACTID-1', 'EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_IN'),
