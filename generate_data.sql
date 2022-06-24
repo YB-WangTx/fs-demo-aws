@@ -1,18 +1,13 @@
-insert into user_preferences (user_id, account_id,name,contact_email,communication,preferred_region)
-values(1000, 'x1000', 'test1', 'test1000@gmail.com', '{"Account_documents":{"Statements":"eDelivery", "Trade_confirmations":"eDelivery"},
-  "Account_and_service_communications":{"Account activity and service emails":"opt-in"},"Subscriptions":{"Viewpoints_Weekly_Edition":"opt-in", "Trading_and_Investing_Webinars":"opt-out"}}','US-EAST-2');
-  
-  insert into user_preferences (user_id, account_id,name,contact_email,communication,preferred_region)
-values(2000, 'x2000', 'test2000', 'test2000@gmail.com', '{"Account_documents":{"Statements":"eDelivery", "Trade_confirmations":"eDelivery"},
-  "Account_and_service_communications":{"Account activity and service emails":"opt-in"},"Subscriptions":{"Viewpoints_Weekly_Edition":"opt-in", "Trading_and_Investing_Webinars":"opt-out"}}','AP-SOUTHEAST-1');
-  
-  
-  insert into user_preferences (user_id, account_id,name,contact_email,communication,preferred_region)
-values(3000, 'x3000', 'test3000', 'test3000@gmail.com', '{"Account_documents":{"Statements":"eDelivery", "Trade_confirmations":"eDelivery"},
-  "Account_and_service_communications":{"Account activity and service emails":"opt-in"},"Subscriptions":{"Viewpoints_Weekly_Edition":"opt-in", "Trading_and_Investing_Webinars":"opt-out"}}','US-WEST-2');
-  
+
+SET force_global_transaction = TRUE;
+INSERT INTO customers (customer_id, full_name, email, password, enabled, phone_number, preferred_region, account_statement_delivery, tax_forms_delivery, trade_confirmation, subscribe_newsletter, subscribe_webinar, subscribe_blog)
+VALUES (nextval('customers_customer_id_seq'), 'Demo US User', 'us-user@example.com','$2a$10$GddY6N91rEZb2w8HctJ22OpTew9rEbBOzvHmoNBRW0eBTns57cLPW', TRUE, '512-000-0212', 'US','EDELIVERY', 'EDELIVERY', 'EDELIVERY', 'OPT_IN', 'OPT_IN','OPT_OUT'),
+       (nextval('customers_customer_id_seq'), 'Demo EU User', 'eu-user@example.com','$2a$10$yff4ZmyqBIOsYPBe.NDnte7DR7bTdT.4T/YlkeB02boc5HdH/hg1W', TRUE, '787-000-0212', 'EU','US_MAIL', 'EDELIVERY', 'EDELIVERY', 'OPT_OUT', 'OPT_OUT','OPT_OUT'),
+       (nextval('customers_customer_id_seq'), 'Demo AP User', 'ap-user@example.com','$2a$10$v7K90bPUvAubpRMBcjEdQOaQR87LsGLN0kOCELk24GB3cMy7siWNi', TRUE, '888-000-0212', 'AP','EDELIVERY', 'US_MAIL', 'EDELIVERY', 'OPT_OUT', 'OPT_OUT','OPT_IN');
+SET force_global_transaction = FALSE;
+
   --distributed transactions
-  SET force_global_transaction = TRUE;
+ /* SET force_global_transaction = TRUE;
   BEGIN;
    insert into user_preferences (user_id, account_id,name,contact_email,communication,preferred_region)
    values(1001, 'x1001', 'test1001', 'test1001@gmail.com', '{"Account_documents":{"Statements":"eDelivery", "Trade_confirmations":"eDelivery"},
@@ -23,20 +18,8 @@ values(3000, 'x3000', 'test3000', 'test3000@gmail.com', '{"Account_documents":{"
   "Account_and_service_communications":{"Account activity and service emails":"opt-in"},"Subscriptions":{"Viewpoints_Weekly_Edition":"opt-in", "Trading_and_Investing_Webinars":"opt-out"}}','AP-SOUTHEAST-1');
   
   COMMIT;
-
+*/
 ---
-  select * from User_Preferences_us_east;
-  
-  select * from User_Preferences_ap_southeast;
-  
-  select * from User_Preferences_us_west;
-  
-  select * from User_Preferences where preferred_region='AP-SOUTHEAST-1';
-  select * from User_Preferences where preferred_region='US-EAST-3';
-  select * from User_Preferences where preferred_region='US-WEST-2';
-  
-  select name, account_id, communication->'Subscriptions'->'Viewpoints_Weekly_Edition', communication->'Account_documents'->'Statements' from user_preferences;
-  
   
   # wget https://github.com/yugabyte/yb-sample-apps/releases/download/1.3.9/yb-sample-apps.jar
 
